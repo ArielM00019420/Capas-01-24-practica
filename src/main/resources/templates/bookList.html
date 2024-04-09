@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List</title>
+</head>
+    <body>
+        <table>
+            <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Title</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#books}}
+            <tr>
+                <td>{{ISBN}}</td>
+                <td>{{title}}</td>
+            </tr>
+            {{/books}}
+            </tbody>
+        </table>
+    </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rest</title>
+</head>
+<body>
+<form action="#" id="save-book-form">
+    <label>
+        ISBN
+        <input name="ISBN" id="isbn-field">
+    </label>
+    <label>
+        Tittle
+        <input name="Tittle" id="title-field">
+    </label>
+    <input type="submit" >
+</form>
+<table>
+        <tbody id="books-container">
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>ISBN</th>-->
+<!--        <th>Title</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+
+<!--    {{#books}}-->
+<!--    <tr>-->
+
+<!--    </tr>-->
+<!--    {{/books}}-->
+    </tbody>
+</table>
+<script>
+    const form = document.querySelector("#save-book-form")
+    const table = document.querySelector("#books-container")
+    const createBookChild = (info) => {
+        const holder = document.createElement("tr");
+        holder.innerHTML =
+                <td>${info.isbn}</td>
+                <td>${info.title}</td>
+    }
+    const fetchBooks = async () => {
+        const response = await fetch("/api/library/all");
+        const data = await response.json();
+        return data;
+    }
+
+    const renderBooks = async () => {
+        const books = await fetchBooks() || [];
+        table.innerHTML = "";
+
+        books.forEach(b => {
+            table.appendChild(
+                createBookChild(b)
+            )
+        })
+    }
+
+    const saveBook = async () => {
+        const data = new FormData(form);
+        const book = {
+            ISBN: data.get("isbn"),
+            tittle: data.get("tittle")
+        }
+        const response = await fetch("/api/library/save", {
+            headers: {
+                "Content-Type": "application/json"
+            },
+            method: "POST",
+            body:
+        })
+    }
+    const main = () => {
+        renderBooks();
+
+        form.addEventListener("submit", (e) => e.preventDefault())
+    }
+</script>
+</body>
+</html>
